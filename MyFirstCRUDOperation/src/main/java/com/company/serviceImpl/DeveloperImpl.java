@@ -14,18 +14,21 @@ public class DeveloperImpl implements DeveloperService {
     @Autowired
      private DeveloperRepository developerRepository;
 
+    // Save a developer to the database
     @Override
     public String saveDeveloper(Developer developer) {
         Developer saveDeveloper = developerRepository.save(developer);
         return "devloper save";
     }
 
+    // Get all developers from the database
     @Override
     public List<Developer> getAllDeveloper() {
         List<Developer> developerList = developerRepository.findAll();
         return developerList;
     }
 
+    // Retrieve a single developer by ID
     @Override
     public Developer getDeveloperById(int id) {
         Developer developer
