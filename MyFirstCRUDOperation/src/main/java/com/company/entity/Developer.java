@@ -23,6 +23,26 @@ public class Developer {
 
     private long salary;
 
+    private String developerId;
+
+    private int yearOfBirth;
+
+    public String getDeveloperId() {
+        return developerId;
+    }
+
+    public void setDeveloperId(String developerId) {
+        this.developerId = developerId;
+    }
+
+    public int getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(int yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
+    }
+
     public int getId() {
         return id;
     }

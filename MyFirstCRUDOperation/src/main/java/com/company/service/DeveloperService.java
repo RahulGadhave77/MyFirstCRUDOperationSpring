@@ -14,4 +14,14 @@ public interface DeveloperService {
 
     //Get  a Developer data by its unique ID
     Developer getDeveloperById(int id);
+
+    //update Devloper
+    Developer updateDeve(Developer developer, int id);
+
+    //
+    String deleteDeveloper(int id);
+
+    List<Developer> filterDataBycity(String city);
+
+    List<Developer> filterDataByGender(String gender);
 }
