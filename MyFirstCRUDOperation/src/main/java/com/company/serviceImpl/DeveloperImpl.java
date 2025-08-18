@@ -106,6 +106,7 @@ public class DeveloperImpl implements DeveloperService {
 
             return "developers saved successfully";
         } catch (Exception e) {
+
             e.printStackTrace();
             return "❌ Error: " + e.getMessage();
         }

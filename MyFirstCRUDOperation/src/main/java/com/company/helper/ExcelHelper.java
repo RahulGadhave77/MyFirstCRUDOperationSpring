@@ -1,6 +1,10 @@
 package com.company.helper;
 
 import com.company.entity.Developer;
+import org.apache.poi.poifs.crypt.EncryptionInfo;
+import org.apache.poi.poifs.crypt.EncryptionMode;
+import org.apache.poi.poifs.crypt.Encryptor;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -8,10 +12,10 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -73,8 +77,8 @@ public class ExcelHelper {
             header.createCell(3).setCellValue("Age");
             header.createCell(4).setCellValue("City");
             header.createCell(5).setCellValue("Gender");
-            header.createCell(5).setCellValue("DeveloperId");
-            header.createCell(6).setCellValue("Salary");
+            header.createCell(6).setCellValue("DeveloperId");
+            header.createCell(7).setCellValue("Salary");
 
             // Data rows
             int rowIndex = 1;
@@ -95,11 +99,29 @@ public class ExcelHelper {
                 sheet.autoSizeColumn(col);
             }
 
+            // ✅ Protect the sheet (editable restriction)
+           //sheet.protectSheet("dev123"); // Password for protection
+
+            //write workbook to memory
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            workbook.write(baos);
+
+            //for fuly protected file
+            POIFSFileSystem fs = new POIFSFileSystem();
+            EncryptionInfo info = new EncryptionInfo(EncryptionMode.standard);
+            Encryptor enc = info.getEncryptor();
+            enc.confirmPassword("dev123");  // password to open file
+
+            try (OutputStream os = enc.getDataStream(fs)) {
+                os.write(baos.toByteArray());
+            }
+
+
             // Save file
             String fileName = "Developers_" + System.currentTimeMillis() + ".xlsx";
-            try (FileOutputStream fos = new FileOutputStream(fileName)) {
-                workbook.write(fos);
 
+            try (FileOutputStream fos = new FileOutputStream(fileName)) {
+                fs.writeFilesystem(fos);
             }
 
             System.out.println("✅ Data exported to " + fileName);
