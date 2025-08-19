@@ -3,6 +3,7 @@ package com.company.serviceImpl;
 import com.company.entity.Developer;
 import com.company.helper.DeveloperIdGenrator;
 import com.company.helper.ExcelHelper;
+import com.company.repository.AdminRepository;
 import com.company.repository.DeveloperRepository;
 import com.company.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class DeveloperImpl implements DeveloperService {
+
+    @Autowired
+    private AdminRepository adminRepository ;
 
     @Autowired
      private DeveloperRepository developerRepository;
@@ -81,12 +85,16 @@ public class DeveloperImpl implements DeveloperService {
     }
 
     @Override
-    public String getExcel() {
+    public String getExcel(int id) {
 
+        if (adminRepository.existsById(id)){
         // Step 3: Export fresh Excel with all data in DB
         List<Developer> allDevelopers = developerRepository.findAll();
         ExcelHelper.dbDevelopersToExcel(allDevelopers);
         return "excel Sheet Genrated ";
+        }else {
+            return "You don’t have access download data";
+        }
     }
 
     @Override

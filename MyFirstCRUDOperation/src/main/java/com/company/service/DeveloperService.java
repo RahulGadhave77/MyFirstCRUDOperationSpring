@@ -20,7 +20,7 @@ public interface DeveloperService {
     //update Devloper
     Developer updateDeve(Developer developer, int id);
 
-    //
+    //delete developer by Id
     String deleteDeveloper(int id);
 
     List<Developer> filterDataBycity(String city);
@@ -29,8 +29,6 @@ public interface DeveloperService {
 
     String saveExcell(MultipartFile file);
 
-    String getExcel();
-
-
+    String getExcel(int id);
 
 }

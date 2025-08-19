@@ -74,9 +74,9 @@ public class DeveloperController {
         }
     }
 
-    @GetMapping("/getDeveloperShet")
-    public ResponseEntity<String> getDeveloperExcel(){
-        String msg = developerService.getExcel();
+    @GetMapping("/getDeveloperShet/{id}")
+    public ResponseEntity<String> getDeveloperExcel(@PathVariable int id){
+        String msg = developerService.getExcel(id);
         return new ResponseEntity<>(msg ,HttpStatus.OK);
     }
 }
