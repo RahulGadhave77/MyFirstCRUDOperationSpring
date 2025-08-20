@@ -47,7 +47,7 @@ public class DeveloperImpl implements DeveloperService {
     @Override
     public Developer getDeveloperById(int id) {
         Developer developer
-                =developerRepository.findById(id).orElseThrow(()->new NullPointerException("Developer with id not fount" + id));
+                =developerRepository.findById(id).orElseThrow(()->new NullPointerException ("Developer with id not fount" + id));
         return developer;
     }
 

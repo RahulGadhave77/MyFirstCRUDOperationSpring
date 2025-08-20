@@ -21,8 +21,8 @@ public class DeveloperController {
     private DeveloperService developerService;
 
     @PostMapping("/add")
-    public ResponseEntity<String> addDeveloper(@RequestBody() Developer developer) {
-        System.err.println(developer);
+    public ResponseEntity<String> addDeveloper(@RequestBody Developer developer) {
+       // System.err.println(developer);
         String s = developerService.saveDeveloper(developer);
         return new ResponseEntity<>(s, HttpStatus.CREATED);
     }
@@ -40,13 +40,13 @@ public class DeveloperController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Developer> updateDeve(Developer developer, int id) {
+    public ResponseEntity<Developer> updateDeveloper(@RequestBody Developer developer,@PathVariable int id) {
         Developer updatedDeveloper = developerService.updateDeve(developer, id);
         return new ResponseEntity<>(updatedDeveloper, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteById")
-    public ResponseEntity<String> deleteDeveloper(int id) {
+    public ResponseEntity<String> deleteDeveloper(@PathVariable int id) {
         String msg = developerService.deleteDeveloper(id);
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
@@ -74,7 +74,7 @@ public class DeveloperController {
         }
     }
 
-    @GetMapping("/getDeveloperShet/{id}")
+    @GetMapping("/getDeveloperSheet/{id}")
     public ResponseEntity<String> getDeveloperExcel(@PathVariable int id){
         String msg = developerService.getExcel(id);
         return new ResponseEntity<>(msg ,HttpStatus.OK);
