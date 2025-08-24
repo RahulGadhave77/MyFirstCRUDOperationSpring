@@ -51,8 +51,9 @@ public class DeveloperImpl implements DeveloperService {
         return developer;
     }
 
+    //override updated developer method
     @Override
-    public Developer updateDeve(Developer developer, int id) {
+    public Developer updateDeveloper(Developer developer, int id) {
         Developer update = developerRepository.findById(id).orElseThrow(() -> new RuntimeException("enter valid id"));
        update.setFName(developer.getFName());
        update.setLName(developer.getLName());

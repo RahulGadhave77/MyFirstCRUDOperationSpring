@@ -41,7 +41,7 @@ public class DeveloperController {
 
     @PutMapping("/update")
     public ResponseEntity<Developer> updateDeveloper(@RequestBody Developer developer,@PathVariable int id) {
-        Developer updatedDeveloper = developerService.updateDeve(developer, id);
+        Developer updatedDeveloper = developerService.updateDeveloper(developer, id);
         return new ResponseEntity<>(updatedDeveloper, HttpStatus.OK);
     }
 
